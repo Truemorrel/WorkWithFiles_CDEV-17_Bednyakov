@@ -11,12 +11,16 @@ namespace Task_1
             try //обработчик ошибки общего доступа к папке
             {
                 DirectoryInfo fi = new DirectoryInfo(args[0]);
-                if (!fi.Exists) return; 
+                if (!fi.Exists)
+                {
+                    Console.WriteLine("папка не сучествует");
+                    return;
+                };
                 List<FileInfo> fileList = new List<FileInfo>(); //список файлов для отложенного удаления
                 List<DirectoryInfo> dirList = new List<DirectoryInfo>(); //список директорий для отложенного удаления
                 TimeSpan timeSpentIdle = TimeSpan.FromMinutes(30);
 
-                seekObject(timeSpentIdle, ref dirList, ref fileList, ref fi);
+                seekObject(timeSpentIdle, dirList, fileList, fi);
             
                 ConsoleKeyInfo consoleKey;
 
@@ -53,7 +57,7 @@ namespace Task_1
                             break;
                         case ConsoleKey.Enter:
                             foreach (FileInfo file in fileList)
-                            { Console.WriteLine(file.Name); };
+                            { Console.WriteLine(file.FullName); };
                             Console.WriteLine("?... нажмите любую клавишу");
                             Console.ReadKey();
                             break;
@@ -68,7 +72,7 @@ namespace Task_1
             catch(Exception e)
             { Console.WriteLine($"нет доступа... {e.Message}"); }
         }
-        public static void seekObject(TimeSpan timeAgo, ref List<DirectoryInfo> listDirs, ref List<FileInfo> listFiles, ref DirectoryInfo path)
+        public static void seekObject(TimeSpan timeAgo, List<DirectoryInfo> listDirs, List<FileInfo> listFiles, DirectoryInfo path)
         {
             foreach (FileInfo file in path.GetFiles())
             {
@@ -82,7 +86,7 @@ namespace Task_1
                 if ((DateTime.Now - dir.LastAccessTime) > timeAgo)
                 {
                     listDirs.Add(dir);
-                    seekObject(timeAgo, ref listDirs, ref listFiles, ref path);
+                    seekObject(timeAgo, listDirs, listFiles, dir);
                 }
             }
         }
