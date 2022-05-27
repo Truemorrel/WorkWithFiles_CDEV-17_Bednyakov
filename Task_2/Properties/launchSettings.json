@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Task_2": {
+      "commandName": "Project",
+      "commandLineArgs": "\"D:\\Repos\""
+    }
+  }
+}

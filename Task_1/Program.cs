@@ -13,7 +13,7 @@ namespace Task_1
                 DirectoryInfo fi = new DirectoryInfo(args[0]);
                 if (!fi.Exists)
                 {
-                    Console.WriteLine("папка не сучествует");
+                    Console.WriteLine("папка не существует");
                     return;
                 };
                 List<FileInfo> fileList = new List<FileInfo>(); //список файлов для отложенного удаления
