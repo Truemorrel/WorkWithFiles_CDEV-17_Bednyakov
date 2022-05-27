@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Task_1
+namespace Task_3
 {
     internal class Program
     {
@@ -23,12 +23,14 @@ namespace Task_1
             
                 ConsoleKeyInfo consoleKey;
 
-                do {
+                do
+                {
                     Console.Clear();//выводим интерактивное меню
-                    Console.WriteLine( $"Папка: \"{fi.FullName}\"{Environment.NewLine}Исходный размер: {SumSizeFolder(fi)} байт.");
+                    Console.WriteLine($"Папка: \"{fi.FullName}\"{Environment.NewLine}Исходный размер: {SumSizeFolder(fi)} байт.");
                     Console.WriteLine($"Найдено файлов: {fileList.Count}{Environment.NewLine}");
                     Console.WriteLine($"[Esc] - выход, [Del] - рекурсивное удалиение файлов и папок, [Enter] - показать");
-                    do {//зацикливаем ввод для завершения выбора из предложенных вариантов
+                    do
+                    {//зацикливаем ввод для завершения выбора из предложенных вариантов
                         consoleKey = Console.ReadKey();
                     }
                     while (!ConsoleKey.Escape.Equals(consoleKey.Key) && 
@@ -39,18 +41,18 @@ namespace Task_1
                         case ConsoleKey.Delete:
                             try//обработчик ошибки на этапе удаления
                             {
-                            foreach(FileInfo file in fileList)
+                                foreach (FileInfo file in fileList)
                                 { file.Delete(); };
-                            foreach(DirectoryInfo dir in dirList)
+                                foreach (DirectoryInfo dir in dirList)
                                 {
-                                    if ((dir.GetFiles().Length == 0) && 
-                                        (dir.GetDirectories().Length == 0))
+                                    if (dir.GetFiles().Length == 0 &&
+                                        dir.GetDirectories().Length == 0)
                                     { 
                                         dir.Delete(); 
                                     }
                                 };
                             }
-                            catch ( Exception e ) // вывод сообщения об ошибке удаления
+                            catch (Exception e) // вывод сообщения об ошибке удаления
                             {
                                 Console.WriteLine($"ошибка удаления ... {e.Message}");
                             }
@@ -69,21 +71,21 @@ namespace Task_1
                 !ConsoleKey.Delete.Equals(consoleKey.Key));
                 return;
             }
-            catch(Exception e)
+            catch (Exception e)
             { Console.WriteLine($"нет доступа... {e.Message}"); }
         }
         public static void seekObjects(TimeSpan timeAgo, List<DirectoryInfo> listDirs, List<FileInfo> listFiles, DirectoryInfo path)
         {
             foreach (FileInfo file in path.GetFiles())
             {
-                if ((DateTime.Now - file.LastAccessTime) > timeAgo)
+                if (DateTime.Now - file.LastAccessTime > timeAgo)
                 {
                     listFiles.Add(file);
                 }
             }
             foreach (DirectoryInfo dir in path.GetDirectories())
             {
-                if ((DateTime.Now - dir.LastAccessTime) > timeAgo)
+                if (DateTime.Now - dir.LastAccessTime > timeAgo)
                 {
                     listDirs.Add(dir);
                     seekObjects(timeAgo, listDirs, listFiles, dir);
