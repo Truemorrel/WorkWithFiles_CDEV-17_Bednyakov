@@ -2,7 +2,7 @@
   "profiles": {
     "Task_1": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\Программы"
+      "commandLineArgs": "\"D:\\Repos\\CDEV-17_WorkWithFiles_Bednyakov\\Новая папка\""
     }
   }
 }
