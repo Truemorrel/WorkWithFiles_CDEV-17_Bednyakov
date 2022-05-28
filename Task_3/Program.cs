@@ -45,14 +45,14 @@ namespace Task_3
                                 { file.Delete(); };
                                 foreach (DirectoryInfo dir in dirList)
                                 {
-                                    if (dir.GetFiles().Length == 0 &&
-                                        dir.GetDirectories().Length == 0)
+                                    if ((dir.GetFiles().Length == 0) && 
+                                        (dir.GetDirectories().Length == 0))
                                     { 
                                         dir.Delete(); 
                                     }
                                 };
                             }
-                            catch (Exception e) // вывод сообщения об ошибке удаления
+                            catch ( Exception e ) // вывод сообщения об ошибке удаления
                             {
                                 Console.WriteLine($"ошибка удаления ... {e.Message}");
                             }
@@ -78,14 +78,14 @@ namespace Task_3
         {
             foreach (FileInfo file in path.GetFiles())
             {
-                if (DateTime.Now - file.LastAccessTime > timeAgo)
+                if ((DateTime.Now - file.LastAccessTime) > timeAgo)
                 {
                     listFiles.Add(file);
                 }
             }
             foreach (DirectoryInfo dir in path.GetDirectories())
             {
-                if (DateTime.Now - dir.LastAccessTime > timeAgo)
+                if ((DateTime.Now - dir.LastAccessTime) > timeAgo)
                 {
                     listDirs.Add(dir);
                     seekObjects(timeAgo, listDirs, listFiles, dir);
