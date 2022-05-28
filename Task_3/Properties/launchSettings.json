@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Task_3": {
+      "commandName": "Project",
+      "commandLineArgs": "\"D:\\Repos\\CDEV-17_WorkWithFiles_Bednyakov\\Новая папка\""
+    }
+  }
+}

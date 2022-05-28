@@ -39,16 +39,23 @@ namespace Task_3
                     switch (consoleKey.Key)//
                     {
                         case ConsoleKey.Delete:
+                            int numFiles = 0;
+                            int numDirectories = 0;
+                            long fileLength = 0;
                             try//обработчик ошибки на этапе удаления
                             {
                                 foreach (FileInfo file in fileList)
-                                { file.Delete(); };
+                                { 
+                                    fileLength += file.Length;
+                                    file.Delete(); 
+                                    numFiles++; 
+                                };
                                 foreach (DirectoryInfo dir in dirList)
                                 {
-                                    if ((dir.GetFiles().Length == 0) && 
-                                        (dir.GetDirectories().Length == 0))
+                                    if ((uint)dir.GetFiles().Length + (uint)dir.GetDirectories().Length == 0)
                                     { 
-                                        dir.Delete(); 
+                                        dir.Delete();
+                                        numDirectories++;
                                     }
                                 };
                             }
@@ -56,10 +63,13 @@ namespace Task_3
                             {
                                 Console.WriteLine($"ошибка удаления ... {e.Message}");
                             }
+                            Console.WriteLine($"удалено директорий: {numDirectories}, {numFiles} файлов{ Environment.NewLine}освобождено {fileLength} байт");
                             break;
                         case ConsoleKey.Enter:
                             foreach (FileInfo file in fileList)
                             { Console.WriteLine(file.FullName); };
+                            if(fileList.Count == 0)
+                            { Console.WriteLine("<пусто>"); };
                             Console.WriteLine("?... нажмите любую клавишу");
                             Console.ReadKey();
                             break;

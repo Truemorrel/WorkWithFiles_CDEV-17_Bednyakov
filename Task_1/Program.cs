@@ -56,6 +56,8 @@ namespace Task_1
                             }
                             break;
                         case ConsoleKey.Enter:
+                            if(fileList.Count == 0)
+                            { Console.WriteLine("<empty>"); break; }
                             foreach (FileInfo file in fileList)
                             { Console.WriteLine(file.FullName); };
                             Console.WriteLine("?... нажмите любую клавишу");
