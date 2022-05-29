@@ -11,8 +11,8 @@ namespace FinalTask
         {
             Student[] students = new Student[0];
             BinaryFormatter formatter = new BinaryFormatter();
-            //var  Names = new List<string>();
-            var  Groups = new Dictionary<string, List<string>>();
+            //(string StudentName, DateTime StudentBirth) StB;
+            var Groups = new Dictionary<string, List<(string StudentName, DateTime StudentBirth)>>();
 
             try
             {
@@ -20,24 +20,27 @@ namespace FinalTask
                 {
                     students = (Student[])formatter.Deserialize(fs);
                 };
-                
-                for(int i = 0; i < students.Length; i++)
-                {
-                    if (!Groups.TryAdd(students[i].Group, new List<string>{ students[i].Name}))
-                    {
-                        Groups[students[i].Group].Add(students[i].Name) ;
-                    }
-                };
+
+
             }
             catch (Exception e)
             {
                 Console.WriteLine($"При чтении файла возникла ошибка: ...\"{e.Message}\"");
             };
+
+            for (int i = 0; i < students.Length; i++)//наполняем словарь списками групп
+            {
+                if (!Groups.TryAdd(students[i].Group, new List<(string StudentName, DateTime StudentBirth)> { (students[i].Name, students[i].DateOfBirth) }))
+                {
+                    Groups[students[i].Group].Add((students[i].Name, students[i].DateOfBirth));
+                }
+            };
+
+            DirectoryInfo dir = new DirectoryInfo($"C:\\Users\\{Environment.UserName}\\Desktop\\Student");
             try
             {
-                DirectoryInfo dir = new DirectoryInfo($"C:\\Users\\{Environment.UserName}\\Desktop\\Student");
-                if(dir.Exists)
-                { 
+                if (dir.Exists)
+                {
                     Console.WriteLine($"Директория {dir.Name} существует. удилите и повторите запуск.");
                     return;
                 };
@@ -47,9 +50,19 @@ namespace FinalTask
             {
                 Console.WriteLine($"ошибка при создании директории ...\"{e.Message}\"");
             }
-            
+            foreach (var group in Groups.Keys)
+            {
+                using (StreamWriter  fs = File.CreateText(string.Concat(dir.FullName, "\\", group)))
+                {
+                    foreach (var student in Groups[group])
+                    {
+                        fs.WriteLine("{0}, {1}", student.StudentName, student.StudentBirth);
+                    }
+                }
+            }
         }
     }
+
     [Serializable]
     class Student
     {
@@ -57,4 +70,16 @@ namespace FinalTask
         public string Group { get; set; }
         public DateTime DateOfBirth { get; set; }
     }
+    //public struct StB
+    //{
+    //    public string StudentName { get; }
+    //    public DateTime StudentBirth { get; }
+
+    //    public StB(String Name, DateTime date)
+    //    {
+    //        StudentName = Name;
+    //        StudentBirth = date;
+    //    }
+    //}
+    
 }
