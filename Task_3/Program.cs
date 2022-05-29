@@ -63,7 +63,7 @@ namespace Task_3
                             {
                                 Console.WriteLine($"ошибка удаления ... {e.Message}");
                             }
-                            Console.WriteLine($"удалено директорий: {numDirectories}, {numFiles} файлов{ Environment.NewLine}освобождено {fileLength} байт");
+                            Console.WriteLine($"удалено директорий: {numDirectories}, файлов: {numFiles}{ Environment.NewLine}освобождено {fileLength} байт");
                             Console.ReadKey();
                             break;
                         case ConsoleKey.Enter:
