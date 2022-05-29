@@ -52,7 +52,7 @@ namespace Task_3
                                 };
                                 foreach (DirectoryInfo dir in dirList)
                                 {
-                                    if ((uint)dir.GetFiles().Length + (uint)dir.GetDirectories().Length == 0)
+                                    if (((uint)dir.GetFiles().Length + (uint)dir.GetDirectories().Length) == 0)
                                     { 
                                         dir.Delete();
                                         numDirectories++;

@@ -43,8 +43,7 @@ namespace Task_1
                                 { file.Delete(); };
                             foreach(DirectoryInfo dir in dirList)
                                 {
-                                    if ((dir.GetFiles().Length == 0) && 
-                                        (dir.GetDirectories().Length == 0))
+                                    if (((uint)dir.GetFiles().Length + (uint)dir.GetDirectories().Length) == 0)
                                     { 
                                         dir.Delete(); 
                                     }
