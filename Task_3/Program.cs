@@ -96,8 +96,8 @@ namespace Task_3
             }
             foreach (DirectoryInfo dir in path.GetDirectories())
             {
-                    listDirs.Add(dir);
-                    seekObjects(timeAgo, listDirs, listFiles, dir);
+                listDirs.Add(dir);
+                seekObjects(timeAgo, listDirs, listFiles, dir);
             }
         }
         public static long SumSizeFolder(DirectoryInfo path)

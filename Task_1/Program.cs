@@ -19,7 +19,7 @@ namespace Task_1
                 List<FileInfo> fileList = new List<FileInfo>(); //список файлов для отложенного удаления
                 List<DirectoryInfo> dirList = new List<DirectoryInfo>(); //список директорий для отложенного удаления
                 TimeSpan timeSpentIdle = TimeSpan.FromMinutes(30);
-                seekObjects(timeSpentIdle, dirList, fileList, fi);
+                SeekObjects(timeSpentIdle, dirList, fileList, fi);
             
                 ConsoleKeyInfo consoleKey;
 
@@ -74,7 +74,7 @@ namespace Task_1
             catch(Exception e)
             { Console.WriteLine($"нет доступа... {e.Message}"); }
         }
-        public static void seekObjects(TimeSpan timeAgo, List<DirectoryInfo> listDirs, List<FileInfo> listFiles, DirectoryInfo path)
+        public static void SeekObjects(TimeSpan timeAgo, List<DirectoryInfo> listDirs, List<FileInfo> listFiles, DirectoryInfo path)
         {
             foreach (FileInfo file in path.GetFiles())
             {
@@ -85,11 +85,8 @@ namespace Task_1
             }
             foreach (DirectoryInfo dir in path.GetDirectories())
             {
-                if ((DateTime.Now - dir.LastAccessTime) > timeAgo)
-                {
-                    listDirs.Add(dir);
-                    seekObjects(timeAgo, listDirs, listFiles, dir);
-                }
+                listDirs.Add(dir);
+                SeekObjects(timeAgo, listDirs, listFiles, dir);
             }
         }
         public static long SumSizeFolder(DirectoryInfo path)
