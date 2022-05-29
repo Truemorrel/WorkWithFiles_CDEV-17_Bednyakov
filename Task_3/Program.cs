@@ -64,6 +64,7 @@ namespace Task_3
                                 Console.WriteLine($"ошибка удаления ... {e.Message}");
                             }
                             Console.WriteLine($"удалено директорий: {numDirectories}, {numFiles} файлов{ Environment.NewLine}освобождено {fileLength} байт");
+                            Console.ReadKey();
                             break;
                         case ConsoleKey.Enter:
                             foreach (FileInfo file in fileList)
@@ -95,11 +96,8 @@ namespace Task_3
             }
             foreach (DirectoryInfo dir in path.GetDirectories())
             {
-                if ((DateTime.Now - dir.LastAccessTime) > timeAgo)
-                {
                     listDirs.Add(dir);
                     seekObjects(timeAgo, listDirs, listFiles, dir);
-                }
             }
         }
         public static long SumSizeFolder(DirectoryInfo path)
